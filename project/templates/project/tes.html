@@ -1,0 +1,365 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ project.title }}
+{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+
+<section class="py-5 border-bottom border-secondary">
+
+    <div class="container">
+
+        <a href="{% url 'home' %}"
+           class="text-decoration-none text-secondary">
+
+            ← Back to Projects
+
+        </a>
+
+        <div class="row align-items-center mt-4 g-5">
+
+            <div class="col-lg-7">
+
+                <span class="badge bg-primary mb-3">
+                    {{ project.get_category_display }}
+                </span>
+
+                <h1 class="display-4 fw-bold mb-3">
+                    {{ project.title }}
+                </h1>
+
+                <p class="lead text-secondary">
+                    {{ project.short_description }}
+                </p>
+
+                <div class="row mt-4 g-3">
+
+                    {% if project.duration %}
+                    <div class="col-6 col-md-4">
+                        <div class="metric-card">
+                            <small>Duration</small>
+                            <h6>{{ project.duration }}</h6>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if project.budget %}
+                    <div class="col-6 col-md-4">
+                        <div class="metric-card">
+                            <small>Budget</small>
+                            <h6>{{ project.budget }}</h6>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if project.tools_used %}
+                    <div class="col-12 col-md-4">
+                        <div class="metric-card">
+                            <small>Tools</small>
+                            <h6>{{ project.tools_used }}</h6>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-5">
+
+                <img
+                    src="{{ project.cover_image.url }}"
+                    class="img-fluid rounded-4 shadow-lg"
+                    alt="{{ project.title }}"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= CHALLENGE ================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <div class="content-card">
+
+                    <h2 class="fw-bold mb-4">
+                        The Challenge
+                    </h2>
+
+                    <p class="mb-0">
+                        {{ project.challenge|linebreaks }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= APPROACH ================= -->
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <div class="content-card">
+
+                    <h2 class="fw-bold mb-4">
+                        My Approach
+                    </h2>
+
+                    <p class="mb-0">
+                        {{ project.approach|linebreaks }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= GALLERY ================= -->
+
+{% if project.image_1 or project.image_2 or project.image_3 or project.image_4 %}
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-10 mx-auto">
+
+                <h2 class="fw-bold mb-4">
+                    Dashboard & Analysis
+                </h2>
+
+                <div class="row g-4">
+
+                    {% if project.image_1 %}
+                    <div class="col-md-6">
+                        <img src="{{ project.image_1.url }}"
+                             class="img-fluid rounded-4">
+                    </div>
+                    {% endif %}
+
+                    {% if project.image_2 %}
+                    <div class="col-md-6">
+                        <img src="{{ project.image_2.url }}"
+                             class="img-fluid rounded-4">
+                    </div>
+                    {% endif %}
+
+                    {% if project.image_3 %}
+                    <div class="col-md-6">
+                        <img src="{{ project.image_3.url }}"
+                             class="img-fluid rounded-4">
+                    </div>
+                    {% endif %}
+
+                    {% if project.image_4 %}
+                    <div class="col-md-6">
+                        <img src="{{ project.image_4.url }}"
+                             class="img-fluid rounded-4">
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+<!-- ================= SOLUTION ================= -->
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <div class="content-card">
+
+                    <h2 class="fw-bold mb-4">
+                        Solution
+                    </h2>
+
+                    <p class="mb-0">
+                        {{ project.solution|linebreaks }}
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= RESULTS ================= -->
+
+{% if project.metric_1_label %}
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="col-lg-10 mx-auto">
+
+            <h2 class="fw-bold mb-4">
+                Results
+            </h2>
+
+            <div class="row g-4">
+
+                <div class="col-6 col-md-3">
+                    <div class="result-card">
+                        <h2>{{ project.metric_1_value }}</h2>
+                        <p>{{ project.metric_1_label }}</p>
+                    </div>
+                </div>
+
+                {% if project.metric_2_label %}
+                <div class="col-6 col-md-3">
+                    <div class="result-card">
+                        <h2>{{ project.metric_2_value }}</h2>
+                        <p>{{ project.metric_2_label }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if project.metric_3_label %}
+                <div class="col-6 col-md-3">
+                    <div class="result-card">
+                        <h2>{{ project.metric_3_value }}</h2>
+                        <p>{{ project.metric_3_label }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if project.metric_4_label %}
+                <div class="col-6 col-md-3">
+                    <div class="result-card">
+                        <h2>{{ project.metric_4_value }}</h2>
+                        <p>{{ project.metric_4_label }}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+<!-- ================= TESTIMONIAL ================= -->
+
+{% if project.testimonial %}
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="col-lg-8 mx-auto">
+
+            <div class="testimonial-card">
+
+                <div class="display-2 text-primary">
+                    "
+                </div>
+
+                <p class="lead">
+                    {{ project.testimonial }}
+                </p>
+
+                <hr>
+
+                <h6 class="mb-0">
+                    {{ project.client_name }}
+                </h6>
+
+                <small class="text-secondary">
+                    {{ project.client_position }}
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+<!-- ================= CTA ================= -->
+
+<section class="pb-5">
+
+    <div class="container">
+
+        <div class="cta-card text-center">
+
+            <h2 class="fw-bold mb-3">
+                Need Similar Results?
+            </h2>
+
+            <p class="text-secondary mb-4">
+                Let's discuss how data can help
+                your business grow faster.
+            </p>
+
+            <a href="mailto:youremail@gmail.com"
+               class="btn btn-primary btn-lg">
+
+                Schedule a Strategy Call
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
